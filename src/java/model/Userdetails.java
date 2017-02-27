@@ -9,6 +9,8 @@ package model;
  *
  * @author c0682337
  */
+
+//User login details
 public class Userdetails {
     private int id;
     private String username;

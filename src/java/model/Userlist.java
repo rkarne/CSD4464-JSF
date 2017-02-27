@@ -21,6 +21,8 @@ import javax.inject.Named;
  *
  * @author c0682337
  */
+
+//Users login details
 @Named
 @ApplicationScoped
 public class Userlist {
