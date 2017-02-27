@@ -99,5 +99,30 @@ public  class Postlist {
         currentPost = getPostById(id);
         return "display";
     }
-         
+       public String savePost(Userdetails user) {
+        try (Connection conn = DBconnection.getConnection()) {
+          
+            if (currentPost.getId() >= 0) {
+                String sql = "UPDATE posts SET title = ?, contents = ? WHERE id = ?";
+                PreparedStatement pstmt = conn.prepareStatement(sql);
+                pstmt.setString(1, currentPost.getTitle());
+                pstmt.setString(2, currentPost.getContents());
+                pstmt.setInt(3, currentPost.getId());
+                pstmt.executeUpdate();
+            } else {
+                String sql = "INSERT INTO posts (user_id, title, created_time, contents) VALUES (?,?,NOW(),?)";
+                PreparedStatement pstmt = conn.prepareStatement(sql);
+                pstmt.setInt(1, user.getId());
+                pstmt.setString(2, currentPost.getTitle());
+                pstmt.setString(3, currentPost.getContents());
+                pstmt.executeUpdate();
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Postlist.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        getPostsFromDB();
+        // Update the currentPost so that its details appear after navigation
+        currentPost = getPostByTitle(currentPost.getTitle());
+        return "display";
+    }
 }
