@@ -11,7 +11,7 @@
             <c:if test="#{logindetails.status}">
                 <p>Title: <h:inputText value="#{postlist.currentPost.title}" /></p>
                 <p><h:inputTextarea value="#{postlist.currentPost.contents}" /></p>
-                <h:commandButton value="Save" action="#{postlist.savePost(login.user)}" />                
+                <h:commandButton value="Save" action="#{postlist.savePost(logindetails.user)}" />                
             </c:if>
             <c:if test="#{!logindetails.status}"><h1>Please login to add or edit the post</h1></c:if>
             <h:commandButton value="Cancel" action="#{postlist.cancelPost}" />

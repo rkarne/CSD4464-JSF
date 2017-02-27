@@ -21,20 +21,20 @@ import javax.inject.Named;
  *
  * @author c0682337
  */
-
 //Users login details
 @Named
 @ApplicationScoped
 public class Userlist {
-    
+
     private List<Userdetails> users;
     private static Userlist instance;
-      public Userlist() {
+
+    public Userlist() {
         getUsersFromDB();
         instance = this;
     }
-      
-      private void getUsersFromDB() {
+
+    private void getUsersFromDB() {
         try (Connection conn = DBconnection.getConnection()) {
             users = new ArrayList<>();
             Statement stmt = conn.createStatement();
@@ -51,17 +51,17 @@ public class Userlist {
             Logger.getLogger(Userdetails.class.getName()).log(Level.SEVERE, null, ex);
             users = new ArrayList<>();
         }
-        }
-      
-       public List<Userdetails> getUsers() {
+    }
+
+    public List<Userdetails> getUsers() {
         return users;
     }
-       
-        public static Userlist getInstance() {
+
+    public static Userlist getInstance() {
         return instance;
     }
-        
-       public String getUsernameById(int id) {
+
+    public String getUsernameById(int id) {
         for (Userdetails u : users) {
             if (u.getId() == id) {
                 return u.getUsername();
@@ -69,7 +69,8 @@ public class Userlist {
         }
         return null;
     }
-        public int getUserIdByUsername(String username) {
+
+    public int getUserIdByUsername(String username) {
         for (Userdetails u : users) {
             if (u.getUsername().equals(username)) {
                 return u.getId();
@@ -77,9 +78,9 @@ public class Userlist {
         }
         return -1;
     }
-        
-        public void addUser(String username, String password) {
-        try  {
+
+    public void addUser(String username, String password) {
+        try {
             Connection conn = DBconnection.getConnection();
             String sql = "INSERT INTO users (username, passhash) VALUES(?,?)";
             PreparedStatement pstmt = conn.prepareStatement(sql);
@@ -92,4 +93,3 @@ public class Userlist {
         getUsersFromDB();
     }
 }
-      

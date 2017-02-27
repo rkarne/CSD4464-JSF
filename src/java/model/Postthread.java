@@ -12,13 +12,14 @@ import java.util.Date;
  * @author c0689497
  */
 public class Postthread {
+
     private int id;
     private int userId;
     private String title;
     private Date createdTime;
     private String contents;
-    
- public Postthread(int id, int userId, String title, Date createdTime, String contents) {
+
+    public Postthread(int id, int userId, String title, Date createdTime, String contents) {
         this.id = id;
         this.userId = userId;
         this.title = title;
@@ -65,5 +66,5 @@ public class Postthread {
     public String getContents() {
         return contents;
     }
-    
+
 }

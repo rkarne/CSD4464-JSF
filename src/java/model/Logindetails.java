@@ -13,16 +13,16 @@ import javax.inject.Named;
  *
  * @author c0689497
  */
-
 @Named
 @SessionScoped
-public class Logindetails   implements Serializable{
+public class Logindetails implements Serializable {
+
     private String username;
     private String password;
     private boolean status;
     private Userdetails user;
-    
-     public Logindetails() {
+
+    public Logindetails() {
         username = null;
         password = null;
         status = false;
@@ -63,10 +63,10 @@ public class Logindetails   implements Serializable{
                 return "index";
             }
         }
-     
+
         user = null;
         status = false;
         return "index";
     }
-   
+
 }

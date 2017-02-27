@@ -16,7 +16,8 @@ import java.util.logging.Logger;
  * @author c0689497
  */
 public class DBconnection {
-      public static Connection getConnection() throws SQLException {
+
+    public static Connection getConnection() throws SQLException {
         try {
             Class.forName("com.mysql.jdbc.Driver");
         } catch (ClassNotFoundException ex) {
@@ -29,6 +30,8 @@ public class DBconnection {
         String username = "JSFBlog";
         String password = "Feb2017";
         String jdbc = String.format("jdbc:mysql://%s:%s/%s", hostname, port, dbname);
-        return DriverManager.getConnection(jdbc, username, password);
+        //Connection is establised and returned
+        Connection conn = DriverManager.getConnection(jdbc, username, password);
+        return conn;
     }
 }

@@ -16,16 +16,17 @@ import java.util.logging.Logger;
  * @author c0689497
  */
 public class HashCredentials {
+
     public final static String SALT = "THISISArandomSTRINGofCHARACTERSusedTOsaltTHEpasswords";
+
     public static String hashPassword(String password) {
-        
-         
-         String mixture;
+
+        String mixture;
         try {
             mixture = password + SALT;
             MessageDigest md = MessageDigest.getInstance("SHA1");
             byte[] hash = md.digest(mixture.getBytes("UTF-8"));
-            
+
             StringBuilder sb = new StringBuilder();
             for (byte b : hash) {
                 String hex = Integer.toHexString(b & 0xff).toUpperCase();
@@ -39,5 +40,5 @@ public class HashCredentials {
             Logger.getLogger(HashCredentials.class.getName()).log(Level.SEVERE, null, ex);
             return null;
         }
-       } 
+    }
 }

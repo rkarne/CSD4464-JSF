@@ -23,17 +23,18 @@ import javax.inject.Named;
  */
 @Named
 @ApplicationScoped
-public  class Postlist {
+public class Postlist {
+
     private List<Postthread> posts;
     private Postthread currentPost;
-    
-      public Postlist() {
+
+    public Postlist() {
         currentPost = new Postthread(-1, -1, "", null, "");
         getPostsFromDB();
     }
-      
-      private void getPostsFromDB(){
-           try (Connection conn = DBconnection.getConnection()) {
+
+    private void getPostsFromDB() {
+        try (Connection conn = DBconnection.getConnection()) {
             posts = new ArrayList<>();
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT * FROM posts");
@@ -53,16 +54,17 @@ public  class Postlist {
             posts = new ArrayList<>();
         }
 
-      }
-       public List<Postthread> getPosts() {
+    }
+
+    public List<Postthread> getPosts() {
         return posts;
-    }        
-          
-        public Postthread getCurrentPost() {
+    }
+
+    public Postthread getCurrentPost() {
         return currentPost;
     }
-        
-          public Postthread getPostById(int id) {
+
+    public Postthread getPostById(int id) {
         for (Postthread p : posts) {
             if (p.getId() == id) {
                 return p;
@@ -70,8 +72,8 @@ public  class Postlist {
         }
         return null;
     }
-          
-        public Postthread getPostByTitle(String title) {
+
+    public Postthread getPostByTitle(String title) {
         for (Postthread p : posts) {
             if (p.getTitle().equals(title)) {
                 return p;
@@ -79,24 +81,25 @@ public  class Postlist {
         }
         return null;
     }
-        
-       public String view(Postthread post) {
+
+    public String view(Postthread post) {
         currentPost = post;
         return "display";
     }
-       
-        public String addPost() {
+
+    public String addPost() {
         currentPost = new Postthread(-1, -1, "", null, "");
         return "edit";
     }
-        
-        public String deletePost() {
+    //Deleting post from db
+
+    public String deletePost() {
         try (Connection conn = DBconnection.getConnection()) {
             if (currentPost.getId() >= 0) {
                 String sql = "DELETE FROM posts WHERE id = ?";
                 PreparedStatement pstmt = conn.prepareStatement(sql);
                 pstmt.setInt(1, currentPost.getId());
-                pstmt.executeUpdate(); 
+                pstmt.executeUpdate();
             }
         } catch (SQLException ex) {
             Logger.getLogger(Postlist.class.getName()).log(Level.SEVERE, null, ex);
@@ -105,20 +108,27 @@ public  class Postlist {
         currentPost = getPostByTitle(currentPost.getTitle());
         return "index";
     }
-       public String editPost() {
+
+    /**
+     * edit the post and cancel post rendering to display
+     *
+     * @return
+     */
+    public String editPost() {
         return "edit";
     }
-         public String cancelPost() {
-        // currentPost can be corrupted -- reset it based on the DB
+
+    public String cancelPost() {
         int id = currentPost.getId();
         getPostsFromDB();
         currentPost = getPostById(id);
         return "display";
     }
-         //Post save point
-       public String savePost(Userdetails user) {
+    //Post save point
+
+    public String savePost(Userdetails user) {
         try (Connection conn = DBconnection.getConnection()) {
-          
+
             if (currentPost.getId() >= 0) {
                 String sql = "UPDATE posts SET title = ?, contents = ? WHERE id = ?";
                 PreparedStatement pstmt = conn.prepareStatement(sql);
@@ -138,7 +148,6 @@ public  class Postlist {
             Logger.getLogger(Postlist.class.getName()).log(Level.SEVERE, null, ex);
         }
         getPostsFromDB();
-        // Update the currentPost so that its details appear after navigation
         currentPost = getPostByTitle(currentPost.getTitle());
         return "display";
     }
