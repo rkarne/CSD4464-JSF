@@ -4,17 +4,17 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <h:head>
-        <title>#{Postlist.currentPost.title}</title>
+        <title>#{postlist.currentPost.title}</title>
     </h:head>
     <h:body>
         <h:form>
-            <c:if test="#{login.status}">
-                <p>Title: <h:inputText value="#{Postlist.currentPost.title}" /></p>
-                <p><h:inputTextarea value="#{Postlist.currentPost.contents}" /></p>
-                <h:commandButton value="Save" action="#{Postlist.savePost(login.user)}" />                
+            <c:if test="#{logindetails.status}">
+                <p>Title: <h:inputText value="#{postlist.currentPost.title}" /></p>
+                <p><h:inputTextarea value="#{postlist.currentPost.contents}" /></p>
+                <h:commandButton value="Save" action="#{postlist.savePost(login.user)}" />                
             </c:if>
-            <c:if test="#{!login.status}"><h1>Please login to add or edit the post</h1></c:if>
-            <h:commandButton value="Cancel" action="#{Postlist.cancelPost}" />
+            <c:if test="#{!logindetails.status}"><h1>Please login to add or edit the post</h1></c:if>
+            <h:commandButton value="Cancel" action="#{postlist.cancelPost}" />
         </h:form>
     </h:body>
 </html>
