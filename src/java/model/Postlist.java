@@ -89,6 +89,22 @@ public  class Postlist {
         currentPost = new Postthread(-1, -1, "", null, "");
         return "edit";
     }
+        
+        public String deletePost() {
+        try (Connection conn = DBconnection.getConnection()) {
+            if (currentPost.getId() >= 0) {
+                String sql = "DELETE FROM posts WHERE id = ?";
+                PreparedStatement pstmt = conn.prepareStatement(sql);
+                pstmt.setInt(1, currentPost.getId());
+                pstmt.executeUpdate(); 
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Postlist.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        getPostsFromDB();
+        currentPost = getPostByTitle(currentPost.getTitle());
+        return "index";
+    }
        public String editPost() {
         return "edit";
     }
@@ -100,7 +116,6 @@ public  class Postlist {
         return "display";
     }
          //Post save point
-         
        public String savePost(Userdetails user) {
         try (Connection conn = DBconnection.getConnection()) {
           
