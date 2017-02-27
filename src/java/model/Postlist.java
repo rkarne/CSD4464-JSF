@@ -100,6 +100,7 @@ public  class Postlist {
         return "display";
     }
          //Post save point
+         
        public String savePost(Userdetails user) {
         try (Connection conn = DBconnection.getConnection()) {
           
