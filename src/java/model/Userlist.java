@@ -34,6 +34,9 @@ public class Userlist {
         instance = this;
     }
 
+    /*
+    @getting values from the database
+    */
     private void getUsersFromDB() {
         try (Connection conn = DBconnection.getConnection()) {
             users = new ArrayList<>();
@@ -61,6 +64,9 @@ public class Userlist {
         return instance;
     }
 
+    /*
+    @getting the values of the user
+    */
     public String getUsernameById(int id) {
         for (Userdetails u : users) {
             if (u.getId() == id) {

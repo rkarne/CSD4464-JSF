@@ -21,6 +21,10 @@ public class Userdetails {
         this.username = username;
         this.password = password;
     }
+    
+    /*
+    @ using the getters and setters asigning the values to parameters
+    */
 
     public int getId() {
         return id;

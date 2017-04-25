@@ -10,7 +10,7 @@
          <h1>#{postlist.currentPost.title}</h1>
         <p>By #{users.getUsernameById(postlist.currentPost.user_id)} at #{postlist.currentPost.createdTime.toLocaleString()}</p>
         <p>#{postlist.currentPost.contents}</p>
-        <h:form>            
+            <h:form>            
             <c:if test="#{logindetails.status}">
                 <h:commandButton value="Edit" action="#{postlist.editPost()}" />
                 <h:commandButton value="Delete" action="#{postlist.deletePost()}" />
